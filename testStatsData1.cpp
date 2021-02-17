@@ -33,7 +33,6 @@ int main() {
    
   //read in the demographic data
   read_csv(pileOfData, "county_demographics.csv", DEMOG); 
-
   //create a visitor to combine the state data
   visitorCombineState theStates;
   //use visitor pattern to be able to aggregate
@@ -46,26 +45,30 @@ int main() {
         obj->accept((visitorCombineCounty&)theCounties);
   }
 
-  vector<double> dataX;
-  vector<double> dataY;
-  for (auto entry : theCounties.allCountyHData) {
-    if (theCounties.allCountyDData.count(entry.first) > 0) {
-        dataY.push_back((theCounties.allCountyDData[entry.first])->getBelowPoverty());
-        dataX.push_back((theCounties.allCountyDData[entry.first])->getHSup());
-    }
+  //use the counts to compute mean
+  vector<double> dataXcount;
+  vector<double> dataYcount;
+  //compute stdDev of percent (against percent mean - adjusted in function)
+  vector<double> dataXpercent;
+  vector<double> dataYpercent;
+  int totPop = 0;
+  for (auto entry : theStates.allStateDemogData) {
+    dataYcount.push_back(entry.second->getBelowPovertyCount());
+    dataXcount.push_back(entry.second->getHSupCount());
+    totPop += entry.second->getPop(); 
+    dataYpercent.push_back(entry.second->getBelowPoverty());
+    dataXpercent.push_back(entry.second->getHSup());
   }
 
-   double meanX = stats::computeMean(dataX);
-   double stdDevX =  stats::computeMean(dataY);
-   double meanY = stats::computeStdDevSample(dataX);
-   double stdDevY = stats::computeStdDevSample(dataY);
+  double mX = stats::computePopMean(dataXcount, totPop); 
+  double mY = stats::computePopMean(dataYcount, totPop); 
+  double stdDevX = stats::computeStdDevPop(dataXpercent, mX);
+  double stdDevY = stats::computeStdDevPop(dataYpercent, mY);
 
-/*
-  ASSERT_EQUALS(meanX, ?);
-  ASSERT_EQUALS(stdDevX, ?);
-  ASSERT_EQUALS(meanY, ?);
-  ASSERT_EQUALS(stdDevY, ?);
-  */
+  ASSERT_EQUALS(mX, 0.859);
+  //ASSERT_EQUALS(stdDevX, ?);
+  //ASSERT_EQUALS(mY, ?);
+  //ASSERT_EQUALS(stdDevY, ?);
 
   return 0;
 }
