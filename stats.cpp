@@ -46,6 +46,7 @@ double stats::computeStdDevSample(vector<double> theNums) {
 
 }
 
+
 double stats::computeCorCoeff(std::vector<double> inX, std::vector <double> inY) {
 
 	double sumX = std::accumulate(inX.begin(), inX.end(), 0.0);
@@ -62,6 +63,51 @@ double stats::computeCorCoeff(std::vector<double> inX, std::vector <double> inY)
 	return corr;
 }
 
+//https://www.r-tutor.com/elementary-statistics/numerical-measures/covariance
+double stats::computeCoVar(std::vector<double> inX, std::vector <double> inY, double mX, double mY) {
+	//make a vector to put in differences
+	vector<double> diff(inX.size(), 0.0);
+	//fill with differences
+    std::transform(inX.begin(), inX.end(),
+    				inY.begin(), diff.begin(),  
+                   [&](double xi, double yi) {return (xi - mX)*(yi - mY); } );
 
+    //return the sum scaled by n
+	return (1.0/inX.size())*std::accumulate(diff.begin(), diff.end(), 0.0);
+}
+
+//http://www.r-tutor.com/elementary-statistics/numerical-measures/correlation-coefficient
+//working on passing in percentages
+double stats::computeCorCoeffPop(std::vector<double> inX, std::vector <double> inY, double mX, double mY) {
+
+	//convert to percent
+	double mXp = mX*100;
+	double mYp = mY*100;
+
+	//compute the standard deviations
+	double stdDevX = computeStdDevPop(inX, mX);
+	double stdDevY= computeStdDevPop(inY, mY);
+
+	//compute the covariance
+	double covar = computeCoVar(inX, inY, mXp, mYp);
+
+	double corr = covar/(stdDevX*stdDevY);
+
+	//cout << "stdDX: " << stdDevX << " stdDy: " << stdDevY << " cov " << covar << endl;
+	return corr;
+}
+
+double stats::computeChiSqGoodFit(vector<double> obs, vector <double> exp) {
+
+	//over-writes observed data
+    std::transform(obs.begin(), obs.end(),
+    				exp.begin(), obs.begin(),  
+                   [](double o, double e) {return ((o-e)*(o-e))/e; });
+
+	//accumulate
+	double ChiSq = std::accumulate(obs.begin(), obs.end(), 0.0);
+
+	return ChiSq;
+}
 
 
