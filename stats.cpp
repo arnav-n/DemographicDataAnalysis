@@ -13,6 +13,7 @@ double stats::computeMean(vector<double> theNums){
 	return sum / theNums.size();
 }
 
+//pass in counts
 double stats::computePopMean(vector<double> theNums, int totPop){
 
 	double sum = std::accumulate(theNums.begin(), theNums.end(), 0.0);
@@ -20,9 +21,11 @@ double stats::computePopMean(vector<double> theNums, int totPop){
 }
 
 
-double stats::computeStdDevPop(std::vector<double> theNums) {
+//pass in percentages
+double stats::computeStdDevPop(std::vector<double> theNums, double theMean) {
 
-	double m = stats::computeMean(theNums);
+	//convert to percentage
+	double m = theMean*100;
 	double accum = 0.0;
 	std::for_each (std::begin(theNums), std::end(theNums), 
 					[&](const double d) { accum += (d - m) * (d - m); }	
@@ -42,7 +45,6 @@ double stats::computeStdDevSample(vector<double> theNums) {
 	return sqrt(accum / (theNums.size()-1));
 
 }
-
 
 double stats::computeCorCoeff(std::vector<double> inX, std::vector <double> inY) {
 
