@@ -11,7 +11,7 @@ tests: ${BINARIES}
 	./testStats1
 	./testStatsData1
 
-dataProj: placeData.o racialDemog.o rating.o stats.o comboHospitalData.o hospitalData.o comboDemogData.o demogData.o parse.o  main.o
+dataProj: statTool.o placeData.o racialDemog.o rating.o stats.o comboHospitalData.o hospitalData.o comboDemogData.o demogData.o parse.o  main.o
 	${CXX} $^ -o $@
 
 testStats1: placeData.o racialDemog.o rating.o testStats1.o stats.o comboHospitalData.o hospitalData.o comboDemogData.o demogData.o parse.o  tddFuncs.o

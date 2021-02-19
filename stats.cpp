@@ -47,6 +47,8 @@ double stats::computeStdDevSample(vector<double> theNums) {
 }
 
 
+//https://www.statisticshowto.com/probability-and-statistics/correlation-coefficient-formula/
+//This is the Pearson correlation coefficient
 double stats::computeCorCoeff(std::vector<double> inX, std::vector <double> inY) {
 
 	double sumX = std::accumulate(inX.begin(), inX.end(), 0.0);
@@ -90,6 +92,23 @@ double stats::computeCorCoeffPop(std::vector<double> inX, std::vector <double> i
 
 	//compute the covariance
 	double covar = computeCoVar(inX, inY, mXp, mYp);
+
+	double corr = covar/(stdDevX*stdDevY);
+
+	//cout << "stdDX: " << stdDevX << " stdDy: " << stdDevY << " cov " << covar << endl;
+	return corr;
+}
+
+double stats::computeCorCoeffSample(std::vector<double> inX, std::vector <double> inY) {
+
+	double mX = computeMean(inX);
+	double mY = computeMean(inY);
+	//compute the standard deviations
+	double stdDevX = computeStdDevSample(inX);
+	double stdDevY= computeStdDevSample(inY);
+
+	//compute the covariance
+	double covar = computeCoVar(inX, inY, mX, mY);
 
 	double corr = covar/(stdDevX*stdDevY);
 

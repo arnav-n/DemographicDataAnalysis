@@ -15,6 +15,8 @@ public:
 	static double computeCorCoeff(std::vector<double> inX, std::vector <double> inY);
 	//population
 	static double computeCorCoeffPop(std::vector<double> inX, std::vector <double> inY, double mX, double mY);
+	//sample
+	static double computeCorCoeffSample(std::vector<double> inX, std::vector <double> inY);
 	static double computeChiSqGoodFit(std::vector<double> obs, std::vector <double> exp);
 };
 #endif
