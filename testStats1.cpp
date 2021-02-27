@@ -19,9 +19,9 @@ int main() {
 
   ASSERT_EQUALS(meanX, 41.167);
   //TODO fill in!!!
-  //ASSERT_EQUALS(stdDevX, ?);
-  //ASSERT_EQUALS(meanY, ?);
-  //ASSERT_EQUALS(stdDevY, ?);
+  ASSERT_EQUALS(stdDevX, 15.753);
+  ASSERT_EQUALS(meanY, 81.0);
+  ASSERT_EQUALS(stdDevY, 11.454);
 
   return 0;
 }

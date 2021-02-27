@@ -4,9 +4,10 @@
 #include "hospitalData.h"
 #include "demogData.h"
 
-/* a visitor can visit any of my specific data types */
 class Visitor {
-//TODO fill in
+  public:
+    virtual void visit(hospitalData *h) = 0;
+    virtual void visit(demogData *d) = 0;
 };
-#endif
 
+#endif

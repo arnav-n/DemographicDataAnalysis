@@ -63,7 +63,7 @@ void statTool::computeStatsDemogRegionData(Visitor* theRegions, statGatherer* fi
 
     cout << "std dev mean X: " << stats::computeStdDevPop(dataXpercent, mX) << endl;
     cout << "std dev mean Y: " << stats::computeStdDevPop(dataYpercent, mY) << endl;
-    //cout << "Pearson Coeff: "<<stats::computeCorCoeff(dataXpercent, dataYpercent)<< endl;
+    cout << "Pearson Coeff: "<<stats::computeCorCoeff(dataXpercent, dataYpercent)<< endl;
     cout << "Population Coeff: " <<stats::computeCorCoeffPop(dataXpercent, dataYpercent, mX, mY)<< endl;
 
 }

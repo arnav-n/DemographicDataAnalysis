@@ -56,8 +56,10 @@ class countyGather : public statGatherer {
         //for all demographic data
         for (auto entry : ((visitorCombineCounty *)theCounties)->countyDmap()) {
             //make sure there is valid hospital data!
+            // cout<<entry.first<<endl;
             comboHospitalData* hospForCounty= ((visitorCombineCounty *)theCounties)->countyHmapEntry(entry.first);
             if ( hospForCounty != NULL ) {
+                // cout<<"adding to county gatherer"<<endl;
                 double xP = (entry.second->*f1)();
                 double yP = (hospForCounty->*f2)();
                 if (!isnan(xP) && !isnan(yP)) {

@@ -33,12 +33,20 @@ int main() {
    
   //read in the demographic data
   read_csv(pileOfData, "county_demographics.csv", DEMOG); 
+
+  //pileOfData is now a vector that contains all local hospital objects and all county objects
+
   //create a visitor to combine the state data
   visitorCombineState theStates;
   //use visitor pattern to be able to aggregate
+  // cout<<"testing visitor"<<endl;
   for (const auto &obj : pileOfData) {
-        obj->accept((visitorCombineState&)theStates);
+        //has a vector of state-level demog data, and another vector of state-level hospital data
+        //port over DataAQ's createStateDemogData() and createStateHospData()
+        // cout<<obj->getName()<<endl;
+        obj->accept( (visitorCombineState&)theStates );
   }
+  // cout<<"visitor complete"<<endl;
   visitorCombineCounty theCounties("simple_uscities.csv");
   //use visitor pattern to be able to aggregate
   for (const auto &obj : pileOfData) {
